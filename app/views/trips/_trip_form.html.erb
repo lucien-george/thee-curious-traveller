@@ -1,0 +1,8 @@
+<%= simple_form_for trip do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <trix-editor input="trip_description"></trix-editor>
+  <%= f.input :destination %>
+  <%= f.input :price %>
+  <%= f.submit %>
+<% end %>
