@@ -10,15 +10,20 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    @trip.photos.build
   end
 
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
+      params[:photos][:url].each do |url|
+        @trip.photos.create(url: url)
+      end
       redirect_to trip_path(@trip)
     else
       render :new
     end
+    raise
   end
 
   def edit
@@ -43,6 +48,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:title, :description, :destination, :price)
+    params.require(:trip).permit(:title, :description, :destination, :price, photos_attributes: [:url])
   end
 end
