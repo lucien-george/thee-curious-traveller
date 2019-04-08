@@ -4,5 +4,9 @@
   <trix-editor input="trip_description"></trix-editor>
   <%= f.input :destination %>
   <%= f.input :price %>
+  <%= f.simple_fields_for :photos do |p| %>
+    <%= p.input :url, as: :file, input_html: { multiple: true } %>
+    <%= p.input :url_cache, as: :hidden %>
+  <% end %>
   <%= f.submit %>
 <% end %>

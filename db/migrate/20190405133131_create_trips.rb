@@ -5,7 +5,6 @@ class CreateTrips < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :description
       t.string :destination
-      t.string :price
 
       t.timestamps
     end

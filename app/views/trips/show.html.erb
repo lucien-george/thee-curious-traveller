@@ -2,4 +2,8 @@
 <p><%= @trip.title %></p>
 <p><%= sanitize @trip.description %></p>
 <p><%= @trip.destination %></p>
-<p><%= @trip.price %></p>
+<p><%= humanized_money_with_symbol(@trip.price) %></p>
+<%= form_tag orders_path do %>
+  <%= hidden_field_tag 'trip_id', @trip.id %>
+  <%= submit_tag 'Book', class: 'btn btn-primary' %>
+<% end %>
