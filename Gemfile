@@ -16,8 +16,6 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 
-# gem "wysiwyg-rails"
-# gem 'trix'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 

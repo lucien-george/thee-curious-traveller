@@ -39,7 +39,7 @@
       });
       $('#wysiwyg').on('froalaEditor.image.uploaded', function (e, editor, response) {
         let img_url = JSON.parse(response);
-        editor.image.insert(img_url['secure_url'], false, null, editor.image.get(), response)
+        editor.image.insert(img_url['secure_url'], true, null, editor.image.get(), response)
         return false
       }).on('froalaEditor.image.error', function (e, editor, error, response) {
         console.log(error);

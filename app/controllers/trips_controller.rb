@@ -10,7 +10,6 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    # @trip.photos.build
   end
 
   def create
@@ -44,6 +43,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:title, :description, :destination, :price, photos_attributes: [:url])
+    params.require(:trip).permit(:title, :description, :destination, :price)
   end
 end
