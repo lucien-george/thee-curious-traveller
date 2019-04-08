@@ -16,14 +16,13 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
-      params[:photos][:url].each do |url|
+      params[:trip][:photos_attributes]['0'][:url].each do |url|
         @trip.photos.create(url: url)
       end
       redirect_to trip_path(@trip)
     else
       render :new
     end
-    raise
   end
 
   def edit
