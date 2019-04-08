@@ -1,0 +1,2 @@
+class DateRangesController < ApplicationController
+end

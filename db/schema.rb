@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_140348) do
+ActiveRecord::Schema.define(version: 2019_04_08_142131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2019_04_08_140348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_activity_breakdowns_on_activity_id"
+  end
+
+  create_table "date_ranges", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "trip_id"
+    t.index ["trip_id"], name: "index_date_ranges_on_trip_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -73,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_140348) do
   end
 
   add_foreign_key "activity_breakdowns", "activities"
+  add_foreign_key "date_ranges", "trips"
   add_foreign_key "photos", "trips"
   add_foreign_key "trip_activities", "activities"
   add_foreign_key "trip_activities", "trips"
