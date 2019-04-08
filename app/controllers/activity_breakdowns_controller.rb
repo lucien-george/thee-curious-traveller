@@ -1,0 +1,2 @@
+class ActivityBreakdownsController < ApplicationController
+end
