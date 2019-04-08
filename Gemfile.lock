@@ -191,7 +191,6 @@ GEM
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    sku_generator (0.0.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -254,7 +253,6 @@ DEPENDENCIES
   redis
   sassc-rails
   simple_form
-  sku_generator
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe
