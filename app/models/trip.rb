@@ -7,4 +7,5 @@ class Trip < ApplicationRecord
   validates :description, presence: true
   validates :destination, presence: true
   validates :price, presence: true
+  monetize :price_cents
 end
