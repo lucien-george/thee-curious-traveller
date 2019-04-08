@@ -14,7 +14,9 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
+    date_ranges = params[:trip][:date_ranges]
     if @trip.save
+      DateRange.create(trip: @trip, start_date: Date.parse(date_ranges[:start_date].split('to')[0]), end_date: Date.parse(date_ranges[:end_date]))
       @trip.update(sku: "TRIP#{@trip.id}")
       params[:trip][:photos][:url]&.each do |url|
         @trip.photos.create(url: url)
