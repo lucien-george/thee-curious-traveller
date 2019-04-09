@@ -1,37 +1,39 @@
-<h1>Trip show page</h1>
-<p><%= @trip.title %></p>
-<p><%= sanitize @trip.description %></p>
-<p><%= @trip.destination %></p>
-<p><%= humanized_money_with_symbol(@trip.price) %></p>
+<div class="container">
+  <h1>Trip show page</h1>
+  <p><%= @trip.title %></p>
+  <p><%= sanitize @trip.description %></p>
+  <p><%= @trip.destination %></p>
+  <p><%= humanized_money_with_symbol(@trip.price) %></p>
 
-<h2>Dates</h2>
-<% @trip.date_ranges.each do |date_range| %>
-  <p>from <%= date_range.start_date.strftime('%A %b %e, %Y') %> to <%= date_range.end_date.strftime('%A %b %e, %Y') %></p>
-  <hr>
-<% end %>
+  <h2>Dates</h2>
+  <% @trip.date_ranges.each do |date_range| %>
+    <p>from <%= date_range.start_date.strftime('%A %b %e, %Y') %> to <%= date_range.end_date.strftime('%A %b %e, %Y') %></p>
+    <hr>
+  <% end %>
 
-<h2>Activities</h2>
-<% @trip.activities.each do |activity| %>
-  <p><%= activity.title %></p>
-  <ul>
-    <% activity.breakdowns.each do |breakdown| %>
-      <li><p><%= breakdown.description %></p></li>
-    <% end %>
-  </ul>
-  <%= link_to 'Add details to your activity', new_activity_breakdown_path(activity), id: "new_breakdown_#{activity.id}", remote: true, data: { state: 'closed' } %>
-  <hr>
-<% end %>
-<%= simple_form_for [@trip, @date_range] do |f| %>
-  <%= f.input :start_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_start' } %>
-  <%= f.input :end_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_end' } %>
-  <%= f.submit %>
-<% end %>
-<%= simple_form_for [@trip, @activity] do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.submit %>
-<% end %>
-<%= form_tag orders_path do %>
-  <%= hidden_field_tag 'trip_id', @trip.id %>
-  <%= submit_tag 'Book', class: 'btn btn-primary' %>
-<% end %>
+  <h2>Activities</h2>
+  <% @trip.activities.each do |activity| %>
+    <p><%= activity.title %></p>
+    <ul>
+      <% activity.breakdowns.each do |breakdown| %>
+        <li><p><%= breakdown.description %></p></li>
+      <% end %>
+    </ul>
+    <%= link_to 'Add details to your activity', new_activity_breakdown_path(activity), id: "new_breakdown_#{activity.id}", remote: true, data: { state: 'closed' } %>
+    <hr>
+  <% end %>
+  <%= simple_form_for [@trip, @date_range] do |f| %>
+    <%= f.input :start_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_start' } %>
+    <%= f.input :end_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_end' } %>
+    <%= f.submit %>
+  <% end %>
+  <%= simple_form_for [@trip, @activity] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.submit %>
+  <% end %>
+  <%= form_tag orders_path do %>
+    <%= hidden_field_tag 'trip_id', @trip.id %>
+    <%= submit_tag 'Book', class: 'btn btn-primary' %>
+  <% end %>
+</div>
