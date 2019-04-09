@@ -1,6 +1,5 @@
 class TripsController < ApplicationController
   before_action :find_trip, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user!
   def index
     @trips = policy_scope(Trip)
   end
