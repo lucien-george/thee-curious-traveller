@@ -1,3 +1,4 @@
 class Activity < ApplicationRecord
-  has_many :activity_breakdowns, dependent: :destroy
+  has_many :breakdowns, dependent: :destroy
+  belongs_to :trip
 end
