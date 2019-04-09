@@ -8,13 +8,13 @@
   <p><%= @trip.destination %></p>
   <p><%= humanized_money_with_symbol(@trip.price) %></p>
 
-  <h2>Dates</h2>
+  <h2><%= @trip.date_ranges.empty? ? '' : 'Dates' %></h2>
   <% @trip.date_ranges.each do |date_range| %>
     <p>from <%= date_range.start_date.strftime('%A %b %e, %Y') %> to <%= date_range.end_date.strftime('%A %b %e, %Y') %></p>
     <hr>
   <% end %>
 
-  <h2>Activities</h2>
+  <h2><%= @trip.activities.empty? ? '' : 'Activities' %></h2>
   <% @trip.activities.each do |activity| %>
     <p><%= activity.title %></p>
     <ul>
