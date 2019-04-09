@@ -9,9 +9,9 @@
 
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-      data-name="My Trip"
+      data-name="<%= Trip.find_by(sku: @order.trip_sku).title %>"
       data-email="<%= current_user.email %>"
-      data-description="Trip <%= @order.trip_sku %>"
+      data-description="<%= @order.trip_sku %>"
       data-amount="<%= @order.amount_cents %>"
       data-currency="<%= @order.amount.currency %>"></script>
   <% end %>

@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :set_order
-
+  include PayPal::SDK::REST
   def new
   end
 

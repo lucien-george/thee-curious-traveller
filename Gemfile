@@ -21,6 +21,7 @@ gem 'carrierwave', '~> 1.2'
 gem 'money-rails'
 gem 'stripe'
 gem 'pundit'
+gem 'paypal-sdk-rest'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
