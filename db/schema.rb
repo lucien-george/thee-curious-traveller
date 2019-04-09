@@ -18,16 +18,18 @@ ActiveRecord::Schema.define(version: 2019_04_08_165058) do
   create_table "activities", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_activities_on_trip_id"
   end
 
-  create_table "activity_breakdowns", force: :cascade do |t|
+  create_table "breakdowns", force: :cascade do |t|
     t.bigint "activity_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_activity_breakdowns_on_activity_id"
+    t.index ["activity_id"], name: "index_breakdowns_on_activity_id"
   end
 
   create_table "date_ranges", force: :cascade do |t|
@@ -58,15 +60,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_165058) do
     t.index ["trip_id"], name: "index_photos_on_trip_id"
   end
 
-  create_table "trip_activities", force: :cascade do |t|
-    t.bigint "trip_id"
-    t.bigint "activity_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
-    t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
-  end
-
   create_table "trips", force: :cascade do |t|
     t.string "sku"
     t.string "title"
@@ -93,10 +86,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_165058) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "activity_breakdowns", "activities"
+  add_foreign_key "activities", "trips"
+  add_foreign_key "breakdowns", "activities"
   add_foreign_key "date_ranges", "trips"
   add_foreign_key "orders", "users"
   add_foreign_key "photos", "trips"
-  add_foreign_key "trip_activities", "activities"
-  add_foreign_key "trip_activities", "trips"
 end

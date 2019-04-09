@@ -1,0 +1,12 @@
+breakdownLink = document.getElementById('new_breakdown_<%= @activity.id %>');
+if (breakdownLink.dataset.state === 'closed') {
+  breakdownLink.dataset.state = 'opened';
+  breakdownLink.innerText = "Hide";
+  breakdownLink.insertAdjacentHTML('afterend', '<%= j render "breakdown_form", activity: @activity, breakdown: @breakdown %>');
+} else {
+  breakdownLink.dataset.state = 'closed';
+  breakdownLink.innerText = "Add details to your activity";
+  if(breakdownLink.nextElementSibling.tagName === 'FORM') {
+    breakdownLink.nextElementSibling.remove();
+  }
+}

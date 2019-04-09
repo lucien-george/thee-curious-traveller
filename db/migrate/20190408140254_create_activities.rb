@@ -3,6 +3,7 @@ class CreateActivities < ActiveRecord::Migration[5.2]
     create_table :activities do |t|
       t.string :title
       t.text :description
+      t.references :trip, foreign_key: true
 
       t.timestamps
     end
