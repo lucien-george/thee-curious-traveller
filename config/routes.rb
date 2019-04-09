@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/home', to: 'pages#home', as:'home'
   get '/about', to:'pages#about', as:'about'
   get '/faq', to:'pages#faq', as:'faq'
+  get '/contact', to:'pages#contact', as:'contact'
 
   resources :trips do
     resources :date_ranges, only: :create
