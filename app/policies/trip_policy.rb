@@ -6,7 +6,7 @@ class TripPolicy < ApplicationPolicy
   end
 
   def show?
-    user
+    user && record.published || user_admin?
   end
 
   def create?
@@ -14,11 +14,11 @@ class TripPolicy < ApplicationPolicy
   end
 
   def update?
-    user_admin?
+    create?
   end
 
   def destroy?
-    user_admin?
+    create?
   end
 
   private

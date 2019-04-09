@@ -3,6 +3,7 @@ class BreakdownsController < ApplicationController
 
   def new
     @breakdown = Breakdown.new
+    authorize @breakdown
     @activity = Activity.find(params[:activity_id])
     respond_to do |format|
       format.html
@@ -13,6 +14,7 @@ class BreakdownsController < ApplicationController
   def create
     @breakdown = Breakdown.new(breakdown_params)
     @breakdown.activity = Activity.find(params[:activity_id])
+    authorize @breakdown
     if @breakdown.save
       redirect_to trip_path(@breakdown.activity.trip)
     else

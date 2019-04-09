@@ -3,6 +3,7 @@ class DateRangesController < ApplicationController
   def create
     @date_range = DateRange.new(date_range_params)
     @date_range.trip = Trip.find(params[:trip_id])
+    authorize @date_range
     if @date_range.save
       redirect_to trip_path(@date_range.trip)
     else

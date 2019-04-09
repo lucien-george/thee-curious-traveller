@@ -4,6 +4,7 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_params)
     @activity.trip = Trip.find(params[:trip_id])
+    authorize @activity
     if @activity.save
       redirect_to trip_path(@activity.trip)
     else
