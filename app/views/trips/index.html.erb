@@ -1,5 +1,8 @@
 <div class="container">
   <h1>Trip Index</h1>
+  <% if current_user&.admin %>
+    <%= link_to 'Add a new trip', new_trip_path %>
+  <% end %>
   <% @trips.each do |trip| %>
     <%= link_to "#{trip.title}", trip_path(trip) %>
   <% end %>
