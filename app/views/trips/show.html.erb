@@ -1,6 +1,9 @@
 <div class="container">
-  <h1>Trip show page</h1>
-  <p><%= @trip.title %></p>
+  <h1><%= @trip.title %></h1>
+  <% if policy(@trip).create? %>
+    <%= link_to 'Edit', edit_trip_path(@trip) %>
+    <%= link_to 'Delete', trip_path(@trip), method: :delete %>
+  <% end %>
   <p><%= sanitize @trip.description %></p>
   <p><%= @trip.destination %></p>
   <p><%= humanized_money_with_symbol(@trip.price) %></p>
@@ -19,18 +22,22 @@
         <li><p><%= breakdown.description %></p></li>
       <% end %>
     </ul>
-    <%= link_to 'Add details to your activity', new_activity_breakdown_path(activity), id: "new_breakdown_#{activity.id}", remote: true, data: { state: 'closed' } %>
+    <% if policy(@trip).create? %>
+      <%= link_to 'Add details to your activity', new_activity_breakdown_path(activity), id: "new_breakdown_#{activity.id}", remote: true, data: { state: 'closed' } %>
+    <% end %>
     <hr>
   <% end %>
-  <%= simple_form_for [@trip, @date_range] do |f| %>
-    <%= f.input :start_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_start' } %>
-    <%= f.input :end_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_end' } %>
-    <%= f.submit %>
-  <% end %>
-  <%= simple_form_for [@trip, @activity] do |f| %>
-    <%= f.input :title %>
-    <%= f.input :description %>
-    <%= f.submit %>
+  <% if policy(@trip).create? %>
+    <%= simple_form_for [@trip, @date_range] do |f| %>
+      <%= f.input :start_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_start' } %>
+      <%= f.input :end_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_end' } %>
+      <%= f.submit %>
+    <% end %>
+    <%= simple_form_for [@trip, @activity] do |f| %>
+      <%= f.input :title %>
+      <%= f.input :description %>
+      <%= f.submit %>
+    <% end %>
   <% end %>
   <%= form_tag orders_path do %>
     <%= hidden_field_tag 'trip_id', @trip.id %>

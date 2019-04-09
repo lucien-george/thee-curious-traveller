@@ -1,9 +1,6 @@
 <div class="container">
   <h1>Trip Index</h1>
   <% @trips.each do |trip| %>
-    <p><%= trip.title %></p>
-    <p><%= trip.description %></p>
-    <p><%= trip.destination %></p>
-    <p><%= trip.price %></p>
+    <%= link_to "#{trip.title}", trip_path(trip) %>
   <% end %>
 </div>

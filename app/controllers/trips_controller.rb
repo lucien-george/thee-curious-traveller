@@ -2,7 +2,7 @@ class TripsController < ApplicationController
   before_action :find_trip, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!
   def index
-    @trips = Trip.all
+    @trips = policy_scope(Trip)
   end
 
   def show
@@ -12,11 +12,12 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    authorize @trip
   end
 
   def create
     @trip = Trip.new(trip_params)
-    date_ranges = params[:trip][:date_ranges]
+    authorize @trip
     if @trip.save
       @trip.update(sku: "TRIP#{@trip.id}")
       params[:trip][:photos][:url]&.each do |url|
@@ -47,9 +48,10 @@ class TripsController < ApplicationController
 
   def find_trip
     @trip = Trip.find(params[:id])
+    authorize @trip
   end
 
   def trip_params
-    params.require(:trip).permit(:title, :description, :destination, :price)
+    params.require(:trip).permit(:title, :description, :destination, :price, :published)
   end
 end
