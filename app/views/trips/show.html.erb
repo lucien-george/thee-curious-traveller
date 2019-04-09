@@ -10,16 +10,36 @@
 
   <h2><%= @trip.date_ranges.empty? ? '' : 'Dates' %></h2>
   <% @trip.date_ranges.each do |date_range| %>
-    <p>from <%= date_range.start_date.strftime('%A %b %e, %Y') %> to <%= date_range.end_date.strftime('%A %b %e, %Y') %></p>
+    <div class="date-range-card">
+      <p>from <%= date_range.start_date.strftime('%A %b %e, %Y') %> to <%= date_range.end_date.strftime('%A %b %e, %Y') %></p>
+      <% if policy(date_range).create? %>
+        <%= link_to 'Edit', edit_date_range_path(date_range) %>
+        <%= link_to 'Delete', date_range_path(date_range), method: :delete,  data: { confirm: 'Are you sure you want to delete this date range?' } %>
+      <% end %>
+    </div>
     <hr>
   <% end %>
 
   <h2><%= @trip.activities.empty? ? '' : 'Activities' %></h2>
   <% @trip.activities.each do |activity| %>
-    <p><%= activity.title %></p>
+    <div class="activity-header">
+      <p><%= activity.title %></p>
+      <% if policy(activity).create? %>
+        <%= link_to 'Edit', edit_activity_path(activity) %>
+        <%= link_to 'Delete', activity_path(activity), method: :delete, data: { confirm: 'Are you sure you want to delete this activity?' } %>
+      <% end %>
+    </div>
     <ul>
       <% activity.breakdowns.each do |breakdown| %>
-        <li><p><%= breakdown.description %></p></li>
+        <li>
+          <div class="breakdown-list-item">
+            <p><%= breakdown.description %></p>
+            <% if policy(breakdown).create? %>
+              <%= link_to 'Edit', edit_breakdown_path(breakdown) %>
+              <%= link_to 'Delete', breakdown_path(breakdown), method: :delete, data: { confirm: 'Are you sure you want to delete this breakdown?' } %>
+            <% end %>
+          </div>
+        </li>
       <% end %>
     </ul>
     <% if policy(@trip).create? %>
@@ -28,16 +48,8 @@
     <hr>
   <% end %>
   <% if policy(@trip).create? %>
-    <%= simple_form_for [@trip, @date_range] do |f| %>
-      <%= f.input :start_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_start' } %>
-      <%= f.input :end_date, as: :string, required: false, input_html: { class: "datepicker", id:'range_end' } %>
-      <%= f.submit %>
-    <% end %>
-    <%= simple_form_for [@trip, @activity] do |f| %>
-      <%= f.input :title %>
-      <%= f.input :description %>
-      <%= f.submit %>
-    <% end %>
+    <%= render 'date_ranges/date_range_form', trip: @trip, date_range: @date_range %>
+    <%= render 'activities/activity_form', trip: @trip, activity: @activity %>
   <% end %>
   <%= form_tag orders_path do %>
     <%= hidden_field_tag 'trip_id', @trip.id %>
